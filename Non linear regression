@@ -1,0 +1,49 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+import wget
+import math
+import pylab
+import numpy as np
+
+#filename = wget.download(' https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/ML0101ENv3/labs/china_gdp.csv')
+
+df = pd.read_csv('C:\\Users\\milindsawant\\Downloads\\a.csv')
+print(df)
+
+df.head(10)
+
+
+plt.figure(figsize=(8,5))
+x_data, y_data = (df["Year"].values, df["Value"].values)
+plt.plot(x_data, y_data)
+plt.ylabel('GDP')
+plt.xlabel('Year')
+plt.show()
+
+x = np.arange(-0.5 , 0.5 , 0.1)
+
+y = 1.0/(1.0 + np.exp(x))
+
+plt.plot(x , y)
+
+plt.xlabel('Dependent variable')
+plt.ylabel('Indeendent variable')
+
+def sigmoid(x , Beta_1 , Beta_2):
+    y = 1 / (1 + np.exp(-Beta_1 * (x - Beta_2)))
+    return y
+
+cdf = df[['Year' , 'Value']]
+cdf.head(10)
+
+beta_1 = 0.10
+beta_2 = 1990.0
+
+#logistic function
+Y_pred = sigmoid(cdf.Year, beta_1 , beta_2)
+
+#plot initial prediction against datapoints
+plt.plot(cdf.Year, Y_pred*15000000000000.)
+plt.plot(cdf.Year , cdf.Value)
+
+plt.show()
